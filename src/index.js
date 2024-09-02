@@ -3,13 +3,15 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { MyGrid } from "./MyGrid";
+import { MyAutocomplete } from "./MyAutocomplete";
 
 
 const App = () => {
   return (
     <div>
 <h1>Parent component</h1>
-<MyGrid></MyGrid>
+<MyGrid/>
+<MyAutocomplete/>
     </div>
   )
 };

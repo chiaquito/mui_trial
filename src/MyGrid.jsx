@@ -6,14 +6,21 @@ import { DataGrid } from '@mui/x-data-grid';
 export const MyGrid = () => {
 
   const handleEditCellChange = React.useCallback(
-    ({ id, field, value }) => {
-      setRecord((prevRows) =>
-        prevRows.map((row) =>
-          row.id === id ? { ...row, [field]: value } : row
-        )
-      );
+    (params) => {
+      setRecord((prevRows) => {
+        const newRecord = prevRows.map((row) =>{
+          if (params.value === "" && row.id === params.id) {
+            delete row.field
+            return {...row};
+          }
+          if (row.id === params.id) return {...row, [params.field]: value};
+          return row;
+        })
+        return newRecord;
+      });
+      console.log(record);
     },
-    []
+    [record]
   );
 
 
@@ -42,7 +49,7 @@ export const MyGrid = () => {
       headerName: "country",
       width: 150,
       type: "singleSelect",
-      valueOptions: ["Japan",'United Kingdom', 'Spain', 'Brazil'],
+      valueOptions: ["","Japan",'United Kingdom', 'Spain', 'Brazil'],
       editable: true,
     },
   ];
@@ -59,7 +66,10 @@ export const MyGrid = () => {
         onCellEditCommit={handleEditCellChange}
       /></div>
       <div>
-        <button onClick={()=>{setCount((preCnt)=>{return ++preCnt})}}>ボタン</button>
+        <button onClick={()=>{
+          console.log("ボタンクリック")
+          setCount((preCnt)=>{return ++preCnt})
+          }}>ボタン</button>
         {count}
         </div>
     </div>
